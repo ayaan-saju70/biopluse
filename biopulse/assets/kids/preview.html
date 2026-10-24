@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kids Mode Asset Gallery — BioPulse Data</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #FFFDF7;
+      color: #1E293B;
+      font-family: 'Fredoka', cursive, sans-serif;
+      padding: 32px;
+      line-height: 1.5;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    h1 {
+      font-size: 2.2rem;
+      color: #0284C7;
+      margin-bottom: 8px;
+    }
+    p.subtitle {
+      color: #64748B;
+      font-size: 1.1rem;
+    }
+    .section-title {
+      font-size: 1.4rem;
+      color: #E11D48;
+      margin: 32px 0 16px 0;
+      border-bottom: 3px dashed #FDE68A;
+      padding-bottom: 6px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .card {
+      background: #FFFFFF;
+      border: 4px solid #F1F5F9;
+      border-radius: 24px;
+      padding: 16px;
+      text-align: center;
+      box-shadow: 0 10px 24px rgba(30, 41, 59, 0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 28px rgba(30, 41, 59, 0.1);
+      border-color: #38BDF8;
+    }
+    .img-box {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 18px;
+      background: #F8FAFC;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-bottom: 12px;
+      border: 2px dashed #E2E8F0;
+    }
+    .img-box img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #0F172A;
+      margin-bottom: 4px;
+    }
+    .card-desc {
+      font-size: 0.85rem;
+      color: #64748B;
+    }
+    .wide-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+      gap: 24px;
+    }
+    .wide-img-box {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 18px;
+      background: #F8FAFC;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-bottom: 12px;
+      border: 2px dashed #E2E8F0;
+    }
+    .wide-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎨 Kids Mode Illustrated Asset Gallery</h1>
+    <p class="subtitle">Friendly 2D Children's-App Illustration Style • Pastel Palette • Smooth Line Weight</p>
+  </header>
+
+  <!-- 1. PulseBot Mascot -->
+  <h2 class="section-title">1. PulseBot Mascot Expressions (5 Assets)</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="img-box"><img src="pulsebot_happy.jpg" alt="Happy"></div>
+      <div class="card-title">PulseBot Happy</div>
+      <div class="card-desc">Smiling, waving gently with mint antenna</div>
+    </div>
+    <div class="card">
+      <div class="img-box"><img src="pulsebot_surprised.jpg" alt="Surprised"></div>
+      <div class="card-title">PulseBot Surprised</div>
+      <div class="card-desc">Wide glowing eyes, hands on cheeks</div>
+    </div>
+    <div class="card">
+      <div class="img-box"><img src="pulsebot_worried.jpg" alt="Worried"></div>
+      <div class="card-title">PulseBot Worried</div>
+      <div class="card-desc">Concerned eyes, clasped hands, gentle expression</div>
+    </div>
+    <div class="card">
+      <div class="img-box"><img src="pulsebot_celebrating.jpg" alt="Celebrating"></div>
+      <div class="card-title">PulseBot Celebrating</div>
+      <div class="card-desc">Star eyes, arms raised up with confetti</div>
+    </div>
+    <div class="card">
+      <div class="img-box"><img src="pulsebot_thinking.jpg" alt="Thinking"></div>
+      <div class="card-title">PulseBot Thinking</div>
+      <div class="card-desc">Hand on chin, antenna glowing like a lightbulb</div>
+    </div>
+  </div>
+
+  <!-- 2 & 3. Boy Characters -->
+  <h2 class="section-title">2 &amp; 3. Boy Characters (Standing &amp; Sleeping)</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="img-box"><img src="boy_standing.jpg" alt="Boy Standing"></div>
+      <div class="card-title">Boy Standing</div>
+      <div class="card-desc">Front view, star pyjamas, relaxed smile</div>
+    </div>
+    <div class="card">
+      <div class="img-box"><img src="boy_sleeping.jpg" alt="Boy Sleeping"></div>
+      <div class="card-title">Boy Sleeping</div>
+      <div class="card-desc">Peaceful sleep in bed, fluffy pillow &amp; blanket</div>
+    </div>
+  </div>
+
+  <!-- 4 - 8. Gadgets & Tools -->
+  <h2 class="section-title">4 – 8. Friendly Gadgets &amp; Tools</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="img-box"><img src="radar_machine.jpg" alt="Radar Machine"></div>
+      <div class="card-title">Magic Wave Machine</div>
+      <div class="card-desc">Projector radar on tripod with soft glowing horn</div>
+    </div>
+    <div class="card">
+      <div class="img-box"><img src="blender_happy.jpg" alt="Happy Blender"></div>
+      <div class="card-title">Happy Blender</div>
+      <div class="card-desc">Glass jar and smiling pastel teal base</div>
+    </div>
+    <div class="card">
+      <div class="img-box"><img src="strainer_happy.jpg" alt="Happy Strainer"></div>
+      <div class="card-title">Happy Strainer / Sieve</div>
+      <div class="card-desc">Fine mesh and friendly smiling colander bowl</div>
+    </div>
+    <div class="card">
+      <div class="img-box"><img src="toy_camera.jpg" alt="Toy Camera"></div>
+      <div class="card-title">Toy Camera</div>
+      <div class="card-desc">Big round lens, glowing flash bulb on top</div>
+    </div>
+    <div class="card">
+      <div class="img-box"><img src="robot_screen_monitor.jpg" alt="Robot Screen"></div>
+      <div class="card-title">Robot Belly Screen</div>
+      <div class="card-desc">Small rounded monitor with dark glossy screen</div>
+    </div>
+  </div>
+
+  <!-- 9 & 10. Bugs & Organs -->
+  <h2 class="section-title">9 &amp; 10. Noise Bugs &amp; Cartoon Organs</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="img-box"><img src="bug_fan.svg" alt="Fan Bug"></div>
+      <div class="card-title">Fan Bug</div>
+      <div class="card-desc">Spinning propeller on back blowing breezes</div>
+    </div>
+    <div class="card">
+      <div class="img-box"><img src="bug_walking.svg" alt="Walking Bug"></div>
+      <div class="card-title">Walking Bug</div>
+      <div class="card-desc">Cute critter in chunky sneakers with bouncing star</div>
+    </div>
+    <div class="card">
+      <div class="img-box"><img src="bug_phone.svg" alt="Phone Bug"></div>
+      <div class="card-title">Phone Bug</div>
+      <div class="card-desc">Beeping phone critter with glowing signal arcs</div>
+    </div>
+    <div class="card">
+      <div class="img-box"><img src="lungs_happy.svg" alt="Happy Lungs"></div>
+      <div class="card-title">Happy Lungs</div>
+      <div class="card-desc">Pair of smiling lungs holding hands with clean air</div>
+    </div>
+    <div class="card">
+      <div class="img-box"><img src="heart_happy.svg" alt="Happy Heart"></div>
+      <div class="card-title">Happy Heart</div>
+      <div class="card-desc">Pulsing smiling heart with warm glowing aura</div>
+    </div>
+  </div>
+
+  <!-- 11. Backgrounds -->
+  <h2 class="section-title">11. Background Scenes (1920x1080)</h2>
+  <div class="wide-grid">
+    <div class="card">
+      <div class="wide-img-box"><img src="bg_bedroom_night.svg" alt="Cosy Bedroom at Night"></div>
+      <div class="card-title">Cosy Bedroom at Night</div>
+      <div class="card-desc">Arched window with crescent moon &amp; twinkling stars, warm lantern</div>
+    </div>
+    <div class="card">
+      <div class="wide-img-box"><img src="bg_sunny_meadow.svg" alt="Sunny Meadow"></div>
+      <div class="card-title">Sunny Meadow</div>
+      <div class="card-desc">Rolling green hills, warm sunny sky, fluffy clouds and wildflowers</div>
+    </div>
+    <div class="card">
+      <div class="wide-img-box"><img src="bg_friendly_lab.svg" alt="Bright Friendly Lab"></div>
+      <div class="card-title">Bright Friendly Lab</div>
+      <div class="card-desc">Curved futuristic bench, bubbling test tubes, oscilloscope display</div>
+    </div>
+  </div>
+</body>
+</html>

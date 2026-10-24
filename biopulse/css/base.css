@@ -1,0 +1,291 @@
+/* ═══════════════════════════════════════════════════════════
+   base.css — CSS reset, design tokens, navbar, view system
+════════════════════════════════════════════════════════════ */
+
+/* ── Local Webfonts (@font-face with swap & system fallbacks) ── */
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/outfit-v11-latin-regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../fonts/outfit-v11-latin-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/outfit-v11-latin-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('../fonts/outfit-v11-latin-800.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/jetbrains-mono-v18-latin-regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/jetbrains-mono-v18-latin-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Fredoka';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/fredoka-v14-latin-regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Fredoka';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../fonts/fredoka-v14-latin-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Fredoka';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/fredoka-v14-latin-700.woff2') format('woff2');
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+button, input { font-family: inherit; }
+
+/* ── Design tokens ── */
+:root {
+  /* Scientific palette */
+  --bg:       #060913;
+  --surface:  rgba(10,16,30,.88);
+  --border:   rgba(255,255,255,.09);
+  --border-g: rgba(0,243,255,.38);
+  --lime:     #b6ff3c;
+  --lime2:    rgba(182,255,60,.13);
+  --cyan:     #00f3ff;
+  --cyan2:    rgba(0,243,255,.12);
+  --coral:    #ff5e43;
+  --coral2:   rgba(255,94,67,.12);
+  --amber:    #ffb703;
+  --tx:       #f1f5f9;
+  --muted:    #64748b;
+  --grid:     #131c2e;
+
+  /* Kids palette */
+  --kid-cream:  #fffdf5;
+  --kid-sun:    #facc15;
+  --kid-amber:  #f59e0b;
+  --kid-sky:    #38bdf8;
+  --kid-blue:   #0284c7;
+  --kid-coral:  #ff6b6b;
+  --kid-mint:   #2ed573;
+  --kid-green:  #10b981;
+  --kid-text:   #1e293b;
+  --kid-muted:  #64748b;
+  --kid-border: 3px solid #1e293b;
+  --kid-shadow: 0 6px 0 #1e293b;
+
+  /* Spacing & radius */
+  --r-sm: 8px;
+  --r-md: 13px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+}
+
+/* ── Base ── */
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--tx);
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ── Top Navbar ── */
+#top-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  z-index: 900;
+  background: rgba(6,9,19,.9);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 24px rgba(0,0,0,.5);
+}
+
+.brand-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: var(--r-sm);
+  color: var(--tx);
+  text-align: left;
+  transition: background .18s;
+}
+.brand-btn:hover { background: rgba(255,255,255,.06); }
+
+.brand-icon {
+  width: 32px; height: 32px;
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, rgba(0,243,255,.15), rgba(182,255,60,.15));
+  border: 1px solid rgba(0,243,255,.28);
+  color: var(--cyan);
+  flex-shrink: 0;
+}
+.brand-name {
+  display: block;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -.3px;
+  color: #e8f2ff;
+  line-height: 1.2;
+}
+.brand-sub {
+  display: block;
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 1px;
+}
+
+/* Mode pill switcher */
+.mode-pill {
+  display: flex;
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  padding: 3px;
+  gap: 3px;
+}
+.mode-btn {
+  padding: 5px 15px;
+  border-radius: 24px;
+  border: none;
+  background: transparent;
+  color: rgba(255,255,255,.4);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .22s cubic-bezier(.34,1.56,.64,1);
+}
+.mode-btn:hover { color: rgba(255,255,255,.85); }
+.mode-btn.active {
+  background: rgba(255,255,255,.11);
+  color: #fff;
+  box-shadow: 0 0 16px rgba(255,255,255,.05);
+}
+.mode-btn[aria-pressed="true"] {
+  background: rgba(255,255,255,.11);
+  color: #fff;
+}
+
+/* Nav action buttons */
+.nav-actions { display: flex; align-items: center; gap: 8px; }
+.icon-btn {
+  background: rgba(255,255,255,.05);
+  border: 1px solid var(--border);
+  color: rgba(255,255,255,.55);
+  border-radius: var(--r-sm);
+  padding: 6px 9px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .18s;
+}
+.icon-btn:hover {
+  background: rgba(255,255,255,.10);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+/* ── View system ── */
+#view-root {
+  position: fixed;
+  top: 56px; /* below navbar */
+  left: 0; right: 0; bottom: 0;
+  overflow: hidden;
+}
+
+.view {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .26s ease;
+  overflow: hidden;
+}
+.view.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+/* Hidden attribute respected for non-rendered views */
+.view[hidden] { display: none !important; }
+
+/* ── View Exclusivity & 3D Host Rules ── */
+body[data-view="kids"] #top-bar { display: none !important; }
+body[data-view="kids"] .shared-3d-host { display: none !important; }
+body[data-view="kids"] #view-sci { display: none !important; }
+body[data-view="kids"] #view-landing { display: none !important; }
+body[data-view="sci"] #view-kids { display: none !important; }
+body[data-view="sci"] #view-landing { display: none !important; }
+body[data-view="landing"] #view-kids { display: none !important; }
+body[data-view="landing"] #view-sci { display: none !important; }
+
+/* ── Mobile Responsive ── */
+@media (max-width: 600px) {
+  #top-bar { padding: 0 10px; }
+  .brand-sub { display: none; }
+  .brand-name { font-size: 13.5px; }
+  .mode-btn { padding: 5px 10px; font-size: 11px; }
+}
+
+/* ── Accessibility: Prefers Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Low Power Mode Overrides ── */
+body.low-power * {
+  animation: none !important;
+  transition: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+

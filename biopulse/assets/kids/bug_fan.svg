@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <radialGradient id="fanBugBody" cx="45%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#FFEAA7"/>
+      <stop offset="60%" stop-color="#FDCB6E"/>
+      <stop offset="100%" stop-color="#E17055"/>
+    </radialGradient>
+    <linearGradient id="bladeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#BAE6FD"/>
+      <stop offset="100%" stop-color="#38BDF8"/>
+    </linearGradient>
+    <radialGradient id="glowG" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#34D399" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#34D399" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#1E293B" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- Ground Shadow -->
+  <ellipse cx="512" cy="880" rx="220" ry="36" fill="#1E293B" opacity="0.12"/>
+
+  <!-- Feet -->
+  <g fill="#FB7185" stroke="#2D4B5A" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+    <ellipse cx="380" cy="820" rx="48" ry="32"/>
+    <ellipse cx="644" cy="820" rx="48" ry="32"/>
+    <ellipse cx="310" cy="740" rx="42" ry="26" transform="rotate(-15 310 740)"/>
+    <ellipse cx="714" cy="740" rx="42" ry="26" transform="rotate(15 714 740)"/>
+  </g>
+
+  <!-- Chubby Body -->
+  <g filter="url(#softShadow)">
+    <ellipse cx="512" cy="560" rx="240" ry="260" fill="url(#fanBugBody)" stroke="#2D4B5A" stroke-width="14"/>
+  </g>
+
+  <!-- Belly Patch -->
+  <ellipse cx="512" cy="620" rx="160" ry="170" fill="#FFFDF7" opacity="0.9"/>
+
+  <!-- Antennae -->
+  <path d="M 440 330 Q 400 220 340 210" fill="none" stroke="#2D4B5A" stroke-width="14" stroke-linecap="round"/>
+  <circle cx="340" cy="210" r="28" fill="#34D399" stroke="#2D4B5A" stroke-width="12"/>
+
+  <path d="M 584 330 Q 624 220 684 210" fill="none" stroke="#2D4B5A" stroke-width="14" stroke-linecap="round"/>
+  <circle cx="684" cy="210" r="28" fill="#34D399" stroke="#2D4B5A" stroke-width="12"/>
+
+  <!-- Cute Eyes -->
+  <g>
+    <!-- Left Eye -->
+    <ellipse cx="430" cy="500" rx="34" ry="46" fill="#2D4B5A"/>
+    <circle cx="442" cy="484" r="14" fill="#FFFFFF"/>
+    <circle cx="422" cy="520" r="6" fill="#FFFFFF"/>
+
+    <!-- Right Eye -->
+    <ellipse cx="594" cy="500" rx="34" ry="46" fill="#2D4B5A"/>
+    <circle cx="606" cy="484" r="14" fill="#FFFFFF"/>
+    <circle cx="586" cy="520" r="6" fill="#FFFFFF"/>
+
+    <!-- Rosy Cheeks -->
+    <ellipse cx="370" cy="560" rx="32" ry="20" fill="#FB7185" opacity="0.6"/>
+    <ellipse cx="654" cy="560" rx="32" ry="20" fill="#FB7185" opacity="0.6"/>
+
+    <!-- Cute Smiling Mouth -->
+    <path d="M 476 560 Q 512 600 548 560" fill="none" stroke="#2D4B5A" stroke-width="12" stroke-linecap="round"/>
+  </g>
+
+  <!-- Propeller Fan on Head -->
+  <g transform="translate(512 280)">
+    <!-- Mounting Base -->
+    <rect x="-30" y="-15" width="60" height="30" rx="10" fill="#FB7185" stroke="#2D4B5A" stroke-width="10"/>
+    <ellipse cx="0" cy="0" rx="200" ry="60" fill="none" stroke="#BAE6FD" stroke-width="6" stroke-dasharray="16 16" opacity="0.7"/>
+
+    <!-- Blade 1 -->
+    <g transform="rotate(0)">
+      <path d="M 0 0 C 40 -80 120 -90 140 -40 C 150 0 100 20 0 0 Z" fill="url(#bladeGrad)" stroke="#2D4B5A" stroke-width="10" stroke-linejoin="round"/>
+    </g>
+    <!-- Blade 2 -->
+    <g transform="rotate(120)">
+      <path d="M 0 0 C 40 -80 120 -90 140 -40 C 150 0 100 20 0 0 Z" fill="url(#bladeGrad)" stroke="#2D4B5A" stroke-width="10" stroke-linejoin="round"/>
+    </g>
+    <!-- Blade 3 -->
+    <g transform="rotate(240)">
+      <path d="M 0 0 C 40 -80 120 -90 140 -40 C 150 0 100 20 0 0 Z" fill="url(#bladeGrad)" stroke="#2D4B5A" stroke-width="10" stroke-linejoin="round"/>
+    </g>
+
+    <!-- Center Hub -->
+    <circle cx="0" cy="0" r="32" fill="#FDE68A" stroke="#2D4B5A" stroke-width="10"/>
+    <circle cx="-8" cy="-8" r="8" fill="#FFFFFF"/>
+  </g>
+
+  <!-- Wind Swirls -->
+  <path d="M 720 220 Q 800 200 840 240 Q 860 270 820 280" fill="none" stroke="#38BDF8" stroke-width="8" stroke-linecap="round" opacity="0.6"/>
+  <path d="M 280 200 Q 200 180 170 230 Q 150 260 190 280" fill="none" stroke="#38BDF8" stroke-width="8" stroke-linecap="round" opacity="0.6"/>
+</svg>

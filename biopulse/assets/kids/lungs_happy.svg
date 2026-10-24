@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <radialGradient id="lungLeft" cx="40%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#FFE4E6"/>
+      <stop offset="60%" stop-color="#FDA4AF"/>
+      <stop offset="100%" stop-color="#FB7185"/>
+    </radialGradient>
+    <radialGradient id="lungRight" cx="60%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#FFE4E6"/>
+      <stop offset="60%" stop-color="#FDA4AF"/>
+      <stop offset="100%" stop-color="#FB7185"/>
+    </radialGradient>
+    <linearGradient id="tracheaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#BAE6FD"/>
+      <stop offset="100%" stop-color="#38BDF8"/>
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#1E293B" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- Ground Shadow -->
+  <ellipse cx="512" cy="890" rx="260" ry="36" fill="#1E293B" opacity="0.12"/>
+
+  <!-- Trachea and Bronchial Tree -->
+  <g stroke="#2D4B5A" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Windpipe -->
+    <rect x="477" y="150" width="70" height="230" rx="35" fill="url(#tracheaGrad)"/>
+    <!-- Cartilage rings -->
+    <line x1="482" y1="200" x2="542" y2="200" stroke="#FFFDF7" stroke-width="8"/>
+    <line x1="482" y1="240" x2="542" y2="240" stroke="#FFFDF7" stroke-width="8"/>
+    <line x1="482" y1="280" x2="542" y2="280" stroke="#FFFDF7" stroke-width="8"/>
+    <line x1="482" y1="320" x2="542" y2="320" stroke="#FFFDF7" stroke-width="8"/>
+
+    <!-- Left Bronchus -->
+    <path d="M 485 360 Q 420 400 370 450" fill="none" stroke-width="16"/>
+    <!-- Right Bronchus -->
+    <path d="M 539 360 Q 604 400 654 450" fill="none" stroke-width="16"/>
+  </g>
+
+  <!-- Left Lung Lobe -->
+  <g filter="url(#softShadow)">
+    <path d="M 440 370 C 420 290 310 290 260 360 C 180 470 170 650 240 760 C 290 840 400 830 450 760 C 470 730 460 440 440 370 Z" fill="url(#lungLeft)" stroke="#2D4B5A" stroke-width="14" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Right Lung Lobe -->
+  <g filter="url(#softShadow)">
+    <path d="M 584 370 C 604 290 714 290 764 360 C 844 470 854 650 784 760 C 734 840 624 830 574 760 C 554 730 564 440 584 370 Z" fill="url(#lungRight)" stroke="#2D4B5A" stroke-width="14" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Cute Face on Left Lung -->
+  <g>
+    <!-- Eye -->
+    <ellipse cx="320" cy="520" rx="20" ry="28" fill="#2D4B5A"/>
+    <circle cx="328" cy="510" r="8" fill="#FFFFFF"/>
+    <circle cx="316" cy="532" r="4" fill="#FFFFFF"/>
+    <!-- Cheek -->
+    <ellipse cx="280" cy="560" rx="22" ry="14" fill="#FF4757" opacity="0.4"/>
+    <!-- Half smile -->
+    <path d="M 340 550 Q 360 570 380 550" fill="none" stroke="#2D4B5A" stroke-width="10" stroke-linecap="round"/>
+  </g>
+
+  <!-- Cute Face on Right Lung -->
+  <g>
+    <!-- Eye -->
+    <ellipse cx="704" cy="520" rx="20" ry="28" fill="#2D4B5A"/>
+    <circle cx="712" cy="510" r="8" fill="#FFFFFF"/>
+    <circle cx="700" cy="532" r="4" fill="#FFFFFF"/>
+    <!-- Cheek -->
+    <ellipse cx="744" cy="560" rx="22" ry="14" fill="#FF4757" opacity="0.4"/>
+    <!-- Half smile -->
+    <path d="M 644 550 Q 664 570 684 550" fill="none" stroke="#2D4B5A" stroke-width="10" stroke-linecap="round"/>
+  </g>
+
+  <!-- Hands Holding in Middle -->
+  <g fill="#FDA4AF" stroke="#2D4B5A" stroke-width="12">
+    <ellipse cx="460" cy="590" rx="26" ry="18" transform="rotate(15 460 590)"/>
+    <ellipse cx="564" cy="590" rx="26" ry="18" transform="rotate(-15 564 590)"/>
+  </g>
+
+  <!-- Fresh Air Bubbles / Breeze Swirls -->
+  <g fill="#E0F2FE" stroke="#38BDF8" stroke-width="8">
+    <circle cx="210" cy="300" r="28" opacity="0.8"/>
+    <circle cx="160" cy="240" r="16" opacity="0.7"/>
+    <circle cx="814" cy="300" r="28" opacity="0.8"/>
+    <circle cx="864" cy="240" r="16" opacity="0.7"/>
+  </g>
+  <path d="M 440 100 Q 512 70 584 100" fill="none" stroke="#34D399" stroke-width="8" stroke-linecap="round"/>
+</svg>

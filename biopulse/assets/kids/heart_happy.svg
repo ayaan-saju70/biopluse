@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <radialGradient id="heartGrad" cx="45%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#FFE4E6"/>
+      <stop offset="40%" stop-color="#FB7185"/>
+      <stop offset="100%" stop-color="#E11D48"/>
+    </radialGradient>
+    <radialGradient id="heartGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FDE68A" stop-opacity="0.8"/>
+      <stop offset="60%" stop-color="#FB7185" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#FB7185" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#1E293B" flood-opacity="0.14"/>
+    </filter>
+  </defs>
+
+  <!-- Glowing Aura -->
+  <circle cx="512" cy="512" r="380" fill="url(#heartGlow)"/>
+
+  <!-- Ground Shadow -->
+  <ellipse cx="512" cy="880" rx="220" ry="34" fill="#1E293B" opacity="0.12"/>
+
+  <!-- Little Dancing Feet -->
+  <g fill="#FDE68A" stroke="#2D4B5A" stroke-width="12">
+    <ellipse cx="430" cy="830" rx="42" ry="26"/>
+    <ellipse cx="594" cy="830" rx="42" ry="26"/>
+  </g>
+
+  <!-- Big Chubby Heart -->
+  <g filter="url(#softShadow)">
+    <path d="M 512 800 C 512 800 210 630 210 430 C 210 300 310 230 420 230 C 475 230 512 280 512 280 C 512 280 549 230 604 230 C 714 230 814 300 814 430 C 814 630 512 800 512 800 Z" fill="url(#heartGrad)" stroke="#2D4B5A" stroke-width="14" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Cute Face -->
+  <g>
+    <!-- Left Big Eye -->
+    <ellipse cx="420" cy="450" rx="36" ry="48" fill="#2D4B5A"/>
+    <circle cx="434" cy="432" r="14" fill="#FFFFFF"/>
+    <circle cx="410" cy="470" r="6" fill="#FFFFFF"/>
+
+    <!-- Right Big Eye -->
+    <ellipse cx="604" cy="450" rx="36" ry="48" fill="#2D4B5A"/>
+    <circle cx="618" cy="432" r="14" fill="#FFFFFF"/>
+    <circle cx="594" cy="470" r="6" fill="#FFFFFF"/>
+
+    <!-- Rosy Cheeks -->
+    <ellipse cx="350" cy="510" rx="32" ry="20" fill="#FFFDF7" opacity="0.7"/>
+    <ellipse cx="674" cy="510" rx="32" ry="20" fill="#FFFDF7" opacity="0.7"/>
+
+    <!-- Joyful Open Smile -->
+    <path d="M 466 505 Q 512 565 558 505 Z" fill="#FFE4E6" stroke="#2D4B5A" stroke-width="12" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Waving Cute Hands -->
+  <g fill="#FDA4AF" stroke="#2D4B5A" stroke-width="12">
+    <!-- Left Hand waving up -->
+    <ellipse cx="230" cy="380" rx="32" ry="24" transform="rotate(-30 230 380)"/>
+    <!-- Right Hand waving up -->
+    <ellipse cx="794" cy="380" rx="32" ry="24" transform="rotate(30 794 380)"/>
+  </g>
+
+  <!-- Sparkles -->
+  <g fill="#FDE68A" stroke="#2D4B5A" stroke-width="6">
+    <!-- Sparkle 1 -->
+    <path d="M 280 230 Q 295 245 295 260 Q 295 245 310 230 Q 295 215 295 200 Q 295 215 280 230 Z"/>
+    <!-- Sparkle 2 -->
+    <path d="M 740 210 Q 755 225 755 240 Q 755 225 770 210 Q 755 195 755 180 Q 755 195 740 210 Z"/>
+  </g>
+</svg>

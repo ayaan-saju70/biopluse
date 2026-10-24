@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="meadowSky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#BAE6FD"/>
+      <stop offset="60%" stop-color="#E0F2FE"/>
+      <stop offset="100%" stop-color="#FEF3C7"/>
+    </linearGradient>
+    <linearGradient id="hillBack" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#A7F3D0"/>
+      <stop offset="100%" stop-color="#6EE7B7"/>
+    </linearGradient>
+    <linearGradient id="hillMid" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6EE7B7"/>
+      <stop offset="100%" stop-color="#34D399"/>
+    </linearGradient>
+    <linearGradient id="hillFront" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#34D399"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FEF08A"/>
+      <stop offset="40%" stop-color="#FDE047"/>
+      <stop offset="100%" stop-color="#FDE047" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect x="0" y="0" width="1920" height="1080" fill="url(#meadowSky)"/>
+
+  <!-- Warm Sun with Rays -->
+  <g transform="translate(1600 200)">
+    <circle cx="0" cy="0" r="140" fill="url(#sunGlow)"/>
+    <circle cx="0" cy="0" r="70" fill="#FDE68A" stroke="#2D4B5A" stroke-width="12"/>
+  </g>
+
+  <!-- Fluffy Cartoon Clouds -->
+  <g fill="#FFFDF7" stroke="#2D4B5A" stroke-width="10" stroke-linejoin="round">
+    <!-- Cloud 1 -->
+    <path d="M 200 240 Q 200 200 240 200 Q 270 170 320 180 Q 370 160 410 200 Q 450 200 450 240 Q 460 280 410 290 L 220 290 Q 180 280 200 240 Z"/>
+    <!-- Cloud 2 -->
+    <path d="M 880 180 Q 880 140 920 140 Q 950 110 1000 120 Q 1050 100 1090 140 Q 1130 140 1130 180 Q 1140 220 1090 230 L 900 230 Q 860 220 880 180 Z"/>
+  </g>
+
+  <!-- Distant Hill 1 -->
+  <path d="M -100 680 Q 400 440 960 620 Q 1500 480 2020 640 L 2020 1080 L -100 1080 Z" fill="url(#hillBack)" stroke="#2D4B5A" stroke-width="14"/>
+
+  <!-- Mid Hill 2 -->
+  <path d="M -100 760 Q 500 560 1100 750 Q 1600 580 2020 720 L 2020 1080 L -100 1080 Z" fill="url(#hillMid)" stroke="#2D4B5A" stroke-width="14"/>
+
+  <!-- Front Green Meadow -->
+  <path d="M -100 860 Q 450 720 1050 880 Q 1550 740 2020 850 L 2020 1080 L -100 1080 Z" fill="url(#hillFront)" stroke="#2D4B5A" stroke-width="14"/>
+
+  <!-- Wildflowers -->
+  <g stroke="#2D4B5A" stroke-width="6">
+    <!-- Flower 1 -->
+    <circle cx="280" cy="920" r="18" fill="#FB7185"/>
+    <circle cx="280" cy="920" r="8" fill="#FDE68A"/>
+    <!-- Flower 2 -->
+    <circle cx="460" cy="960" r="18" fill="#FDE68A"/>
+    <circle cx="460" cy="960" r="8" fill="#FFFDF7"/>
+    <!-- Flower 3 -->
+    <circle cx="840" cy="930" r="18" fill="#38BDF8"/>
+    <circle cx="840" cy="930" r="8" fill="#FDE68A"/>
+    <!-- Flower 4 -->
+    <circle cx="1200" cy="950" r="18" fill="#FB7185"/>
+    <circle cx="1200" cy="950" r="8" fill="#FDE68A"/>
+    <!-- Flower 5 -->
+    <circle cx="1620" cy="910" r="18" fill="#FDE68A"/>
+    <circle cx="1620" cy="910" r="8" fill="#FFFDF7"/>
+  </g>
+</svg>

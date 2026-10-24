@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="nightSky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="50%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+    <linearGradient id="wallGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FEF3C7"/>
+      <stop offset="100%" stop-color="#FDE68A"/>
+    </linearGradient>
+    <linearGradient id="floorGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#B45309"/>
+    </linearGradient>
+    <radialGradient id="lampGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FDE68A" stop-opacity="0.9"/>
+      <stop offset="60%" stop-color="#FDE68A" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#FDE68A" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Bedroom Wall -->
+  <rect x="0" y="0" width="1920" height="820" fill="url(#wallGrad)"/>
+
+  <!-- Wallpaper Subtle Star Dots -->
+  <g fill="#F59E0B" opacity="0.25">
+    <circle cx="200" cy="180" r="8"/>
+    <circle cx="440" cy="120" r="6"/>
+    <circle cx="320" cy="300" r="7"/>
+    <circle cx="1600" cy="160" r="8"/>
+    <circle cx="1780" cy="240" r="6"/>
+    <circle cx="1500" cy="320" r="7"/>
+  </g>
+
+  <!-- Big Arched Night Window -->
+  <g transform="translate(710 120)">
+    <!-- Window Frame Outer -->
+    <path d="M 0 350 L 0 500 L 500 500 L 500 350 A 250 250 0 0 0 0 350 Z" fill="#FFFDF7" stroke="#2D4B5A" stroke-width="16"/>
+    <!-- Window Sky View -->
+    <path d="M 20 350 L 20 480 L 480 480 L 480 350 A 230 230 0 0 0 20 350 Z" fill="url(#nightSky)"/>
+
+    <!-- Crescent Moon -->
+    <path d="M 360 140 A 60 60 0 1 0 420 220 A 45 45 0 1 1 360 140 Z" fill="#FDE68A"/>
+
+    <!-- Twinkling Window Stars -->
+    <g fill="#FFFDF7">
+      <circle cx="120" cy="200" r="5"/>
+      <circle cx="240" cy="150" r="6"/>
+      <circle cx="180" cy="280" r="4"/>
+      <circle cx="300" cy="260" r="5"/>
+      <circle cx="210" cy="380" r="6"/>
+      <circle cx="390" cy="350" r="4"/>
+    </g>
+
+    <!-- Window Sill & Panes -->
+    <line x1="250" y1="120" x2="250" y2="480" stroke="#FFFDF7" stroke-width="12"/>
+    <line x1="20" y1="340" x2="480" y2="340" stroke="#FFFDF7" stroke-width="12"/>
+    <!-- Sill -->
+    <rect x="-30" y="480" width="560" height="34" rx="12" fill="#FFFDF7" stroke="#2D4B5A" stroke-width="12"/>
+  </g>
+
+  <!-- Bunting Garland -->
+  <path d="M 100 100 Q 400 200 700 120" fill="none" stroke="#2D4B5A" stroke-width="6"/>
+  <polygon points="200,140 230,195 260,140" fill="#38BDF8" stroke="#2D4B5A" stroke-width="6"/>
+  <polygon points="320,165 350,220 380,165" fill="#FB7185" stroke="#2D4B5A" stroke-width="6"/>
+  <polygon points="440,165 470,220 500,165" fill="#34D399" stroke="#2D4B5A" stroke-width="6"/>
+  <polygon points="560,140 590,195 620,140" fill="#FDE68A" stroke="#2D4B5A" stroke-width="6"/>
+
+  <!-- Wooden Floor -->
+  <rect x="0" y="820" width="1920" height="260" fill="url(#floorGrad)"/>
+  <line x1="0" y1="820" x2="1920" y2="820" stroke="#2D4B5A" stroke-width="14"/>
+
+  <!-- Floor Planks -->
+  <g stroke="#92400E" stroke-width="6" opacity="0.5">
+    <line x1="0" y1="900" x2="1920" y2="900"/>
+    <line x1="0" y1="980" x2="1920" y2="980"/>
+  </g>
+
+  <!-- Cosy Round Rug -->
+  <ellipse cx="960" cy="940" rx="600" ry="90" fill="#BAE6FD" stroke="#2D4B5A" stroke-width="14"/>
+  <ellipse cx="960" cy="940" rx="520" ry="75" fill="#FFFDF7"/>
+  <ellipse cx="960" cy="940" rx="440" ry="60" fill="#FED7AA"/>
+
+  <!-- Nightstand Table (Left) -->
+  <g transform="translate(180 620)">
+    <!-- Table Body -->
+    <rect x="0" y="80" width="220" height="180" rx="20" fill="#FDE68A" stroke="#2D4B5A" stroke-width="12"/>
+    <rect x="20" y="105" width="180" height="60" rx="12" fill="#FFFDF7" stroke="#2D4B5A" stroke-width="8"/>
+    <circle cx="110" cy="135" r="10" fill="#FB7185"/>
+    <!-- Cute Lamp -->
+    <circle cx="110" cy="30" r="120" fill="url(#lampGlow)"/>
+    <path d="M 70 60 L 150 60 L 170 10 L 50 10 Z" fill="#FB7185" stroke="#2D4B5A" stroke-width="10" stroke-linejoin="round"/>
+    <rect x="100" y="60" width="20" height="25" fill="#2D4B5A"/>
+  </g>
+</svg>
