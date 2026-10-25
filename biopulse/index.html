@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>BioPulse Data — Contactless Micro-Doppler Vital Sign Radar</title>
+  <meta name="description" content="Interactive 7-stage micro-Doppler radar simulation teaching how 10.525 GHz radar senses breathing and heartbeat without contact.">
+
+
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets (load order matters) -->
+  <link rel="stylesheet" href="css/base.css?v=202610242359">
+  <link rel="stylesheet" href="css/landing.css?v=202610242359">
+  <link rel="stylesheet" href="css/scientific.css?v=202610242359">
+  <link rel="stylesheet" href="css/kids.css?v=202610242359">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     GLOBAL NAVBAR (always visible)
+════════════════════════════════════════════════════════════ -->
+<header id="top-bar">
+  <button class="brand-btn" id="btn-home" aria-label="BioPulse Home">
+    <span class="brand-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+      </svg>
+    </span>
+    <span class="brand-text">
+      <span class="brand-name">BioPulse Data</span>
+      <span class="brand-sub">Contactless Micro-Doppler Vital Signs</span>
+    </span>
+  </button>
+
+  <nav class="mode-pill" aria-label="Mode selector">
+    <button class="mode-btn" id="nav-sci" aria-pressed="false">&#128300; Scientific</button>
+    <button class="mode-btn" id="nav-kids" aria-pressed="false">&#127880; Kids</button>
+  </nav>
+
+  <div class="nav-actions">
+    <button class="icon-btn" id="btn-power" title="Toggle Low-Power Eco Mode" aria-label="Toggle low power mode">
+      <span id="power-ico">&#128267;</span>
+    </button>
+    <button class="icon-btn" id="btn-sound" title="Toggle Sound" aria-label="Toggle sound">
+      <span id="sound-ico">&#128266;</span>
+    </button>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════
+     VIEW CONTAINER — only one .view is active at a time
+════════════════════════════════════════════════════════════ -->
+<main id="view-root">
+
+  <!-- Shared 3D Viewport Host (reused seamlessly between Landing and Scientific Mode) -->
+  <div id="shared-3d-host" class="shared-3d-host">
+    <canvas id="landing-3d-canvas" aria-label="Interactive 3D micro-Doppler radar simulation"></canvas>
+    <div id="landing-callouts" class="landing-callouts-layer" aria-hidden="true"></div>
+  </div>
+
+  <!-- ── LANDING VIEW ── -->
+  <section class="view" id="view-landing" aria-label="BioPulse Landing Page">
+    <!-- Thin loading bar for anatomy model -->
+    <div id="landing-load-bar" class="landing-load-bar"><div id="landing-load-progress" class="load-progress-fill"></div></div>
+
+    <!-- Interactive Organ Tooltip -->
+    <div id="organ-tooltip" class="organ-tooltip" hidden role="tooltip">
+      <div class="tooltip-header">
+        <span class="tooltip-title" id="tooltip-title">Organ</span>
+        <span class="tooltip-badge" id="tooltip-badge">Live</span>
+      </div>
+      <div class="tooltip-val" id="tooltip-val">--</div>
+      <div class="tooltip-sub" id="tooltip-sub">Real-time physiological readout</div>
+    </div>
+
+    <!-- Guided Tour Caption -->
+    <div id="tour-caption-box" class="tour-caption-box" hidden aria-live="polite">
+      <div class="tour-step-badge" id="tour-step-badge">STEP 1 / 5</div>
+      <div class="tour-caption-text" id="tour-caption-text">Tour caption...</div>
+      <button class="tour-close-btn" id="tour-close-btn" aria-label="Exit tour">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+
+    <!-- Foreground UI Layout -->
+    <div class="landing-ui">
+      <!-- Left Hero Column -->
+      <header class="landing-lead">
+        <div class="landing-meta-tag">
+          <span class="meta-indicator"></span>
+          <span>Contactless Vital-Sign Radar</span>
+        </div>
+        <h1 class="landing-title">BioPulse Data</h1>
+        <p class="landing-summary">
+          Continuous 10.525 GHz micro-Doppler RF sensing detects nanometer cardiopulmonary displacement without electrodes or physical contact.
+        </p>
+
+        <!-- Mode Selectors: Refined buttons replacing cards -->
+        <div class="mode-actions" aria-label="Mode selection">
+          <button class="mode-action-btn btn-sci" id="card-sci" tabindex="0" role="button">
+            <span class="btn-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                <path d="M2 12h20"></path>
+              </svg>
+            </span>
+            <span class="btn-text">
+              <span class="btn-title">Scientific Mode</span>
+              <span class="btn-desc">Phase angle, FFT spectrum &amp; Nyquist limits</span>
+            </span>
+            <span class="btn-arrow">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </span>
+          </button>
+
+          <button class="mode-action-btn btn-kids" id="card-kids" tabindex="0" role="button">
+            <span class="btn-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+            </span>
+            <span class="btn-text">
+              <span class="btn-title">Kids Mode</span>
+              <span class="btn-desc">Playful, visual exploration for little explorers</span>
+            </span>
+            <span class="btn-arrow">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Scene Controls Panel (Compact Collapsible) -->
+      <aside class="landing-ctrl-panel" id="landing-ctrl-panel" aria-label="Scene parameters">
+        <button class="ctrl-toggle-btn" id="ctrl-toggle-btn" aria-expanded="false" aria-controls="ctrl-drawer">
+          <svg class="ctrl-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line>
+            <line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line>
+            <circle cx="4" cy="12" r="2"></circle><circle cx="12" cy="10" r="2"></circle><circle cx="20" cy="14" r="2"></circle>
+          </svg>
+          <span class="ctrl-toggle-text">Parameters</span>
+          <span class="ctrl-toggle-state" id="ctrl-toggle-chevron">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+
+        <div class="ctrl-drawer" id="ctrl-drawer" hidden>
+          <div class="ctrl-group">
+            <div class="ctrl-label-row">
+              <label>Organ Focus</label>
+            </div>
+            <div class="isolate-btn-group" id="isolate-btn-group" role="radiogroup" aria-label="Organ focus">
+              <button class="isolate-btn active" data-isolate="all">All</button>
+              <button class="isolate-btn" data-isolate="heart">Heart</button>
+              <button class="isolate-btn" data-isolate="lungs">Lungs</button>
+              <button class="isolate-btn" data-isolate="ribcage">Ribcage X-ray</button>
+            </div>
+          </div>
+          <div class="ctrl-group">
+            <div class="ctrl-label-row">
+              <label for="slider-dist">Radar Distance</label>
+              <span class="ctrl-val" id="val-dist">1.0 m</span>
+            </div>
+            <input type="range" id="slider-dist" min="0.5" max="2.5" step="0.1" value="1.0" aria-label="Target Distance">
+          </div>
+
+          <div class="ctrl-group">
+            <div class="ctrl-label-row">
+              <label for="slider-resp">Respiration Rate</label>
+              <span class="ctrl-val" id="val-resp">15 /min</span>
+            </div>
+            <input type="range" id="slider-resp" min="8" max="28" step="1" value="15" aria-label="Respiration rate">
+          </div>
+
+          <div class="ctrl-group">
+            <div class="ctrl-label-row">
+              <label for="slider-heart">Heart Rate</label>
+              <span class="ctrl-val" id="val-heart">72 BPM</span>
+            </div>
+            <input type="range" id="slider-heart" min="50" max="120" step="1" value="72" aria-label="Heart rate">
+          </div>
+
+          <div class="ctrl-row-actions">
+            <button class="ctrl-pill-btn" id="btn-pose-toggle" title="Toggle Standing / Bed Supine position">
+              <span class="pill-dot"></span>
+              <span id="pose-label">Pose: Standing</span>
+            </button>
+            <button class="ctrl-pill-btn primary" id="btn-start-tour" title="Start Guided 3D Camera Tour">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              <span>Guided Tour</span>
+            </button>
+          </div>
+          
+          <div class="ctrl-hud-stats">
+            <span>FPS: <strong id="hud-fps-val">60</strong></span>
+            <span>Quality: <strong id="hud-quality-val">High</strong></span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Scene interaction hint & credits -->
+      <footer class="scene-hint" id="scene-hint">
+        <span class="hint-text">Drag to rotate &bull; Scroll to zoom &bull; Click organs for vitals</span>
+        <span class="landing-credits">Anatomical geometry: BodyParts3D, &copy; DBCLS (CC BY 4.0)</span>
+      </footer>
+    </div>
+  </section>
+
+  <!-- ── SCIENTIFIC VIEW ── -->
+  <section class="view" id="view-sci" aria-label="Scientific Mode" hidden>
+
+    <!-- Compact One-Line Stage Header -->
+    <header class="sci-header-compact" id="sci-header">
+      <div class="sci-hdr-info">
+        <span class="sci-hdr-tag" id="sci-stage-tag">STAGE 1</span>
+        <h2 class="sci-hdr-title" id="sci-title">Transmitter &amp; Free-Space Wave</h2>
+        <span class="sci-hdr-sep">&bull;</span>
+        <p class="sci-hdr-desc" id="sci-desc">Continuous 10.525 GHz microwave beam propagates to the chest; echo power decays with distance.</p>
+      </div>
+      <div class="sci-hdr-actions" aria-label="Stage controls">
+        <button class="sci-hdr-btn" id="sci-prev" aria-label="Previous stage">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          <span>Back</span>
+        </button>
+        <button class="sci-hdr-btn primary" id="sci-next" aria-label="Next stage">
+          <span>Next</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+        <button class="sci-hdr-btn" id="sci-presenter" title="Presenter Mode (P)" aria-label="Toggle Presenter Mode">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <span>Presenter</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace (55% 3D Viewport on Left, 45% Instrument Column on Right) -->
+    <div class="sci-workspace" id="sci-workspace">
+      <!-- Left: Shared 3D Viewport Dock -->
+      <div class="sci-3d-viewport" id="sci-3d-viewport">
+        <div class="sci-viewport-hud" id="sci-viewport-hud">
+          <div class="hud-tag" id="hud-cam-mode">CAM: FREE-SPACE PROPAGATION</div>
+          <div class="hud-coords" id="hud-cam-coords">FOV 55&deg; &bull; 10.525 GHz RF CARRIER</div>
+        </div>
+        <div class="sci-viewport-controls-hint">
+          <span>Drag to orbit &bull; Scroll to zoom</span>
+        </div>
+      </div>
+
+      <!-- Right: Instrument Column with Glass Panels -->
+      <aside class="sci-instrument-col" id="sci-instrument-col">
+        <!-- Panel 1: Live Scope / Spectrum Visualisation -->
+        <section class="inst-panel inst-panel-scope" id="panel-scope">
+          <header class="panel-header">
+            <span class="panel-title" id="scope-title">OSCILLOSCOPE / SPECTRUM</span>
+            <div class="panel-header-badges" id="scope-badges">
+              <span class="badge-live">LIVE</span>
+            </div>
+          </header>
+          <div class="scope-body">
+            <canvas id="sci-scope-canvas" class="sci-scope-canvas" aria-label="Scope display"></canvas>
+          </div>
+        </section>
+
+        <!-- Panel 2: Live Equation Card with live numeric substitution -->
+        <section class="inst-panel inst-panel-eq" id="panel-eq">
+          <header class="panel-header">
+            <span class="panel-title">PHYSICS FORMULATION &amp; DERIVATIONS</span>
+            <span class="panel-badge-mono" id="eq-badge">&lambda; = c / f</span>
+          </header>
+          <div class="eq-body" id="sci-eq-display">
+            <!-- Dynamic math & values -->
+          </div>
+        </section>
+
+        <!-- Panel 3: Interactive Controls Card (Sliders, Toggles, Break It, Challenge, Why This Matters) -->
+        <section class="inst-panel inst-panel-ctrl" id="panel-ctrl">
+          <header class="panel-header">
+            <span class="panel-title">MISSION CONTROLS &amp; CHALLENGE</span>
+            <span class="panel-status-dot" id="ctrl-status-dot" title="Hardware Active"></span>
+          </header>
+          <div class="ctrl-card-body" id="sci-ctrl-body">
+            <!-- Dynamic stage controls -->
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <!-- Bottom: ONE Unified Stage Stepper -->
+    <nav class="sci-bottom-stepper" id="sci-stepper" aria-label="Pipeline Stages">
+      <button class="stage-step-btn active" data-stage="0"><span class="step-num">1</span> <span class="step-name">Transmitter</span></button>
+      <button class="stage-step-btn" data-stage="1"><span class="step-num">2</span> <span class="step-name">Chest</span></button>
+      <button class="stage-step-btn" data-stage="2"><span class="step-num">3</span> <span class="step-name">Reflection</span></button>
+      <button class="stage-step-btn" data-stage="3"><span class="step-num">4</span> <span class="step-name">Mixer</span></button>
+      <button class="stage-step-btn" data-stage="4"><span class="step-num">5</span> <span class="step-name">Filter</span></button>
+      <button class="stage-step-btn" data-stage="5"><span class="step-num">6</span> <span class="step-name">Arduino</span></button>
+      <button class="stage-step-btn" data-stage="6"><span class="step-num">7</span> <span class="step-name">OLED</span></button>
+      <button class="stage-step-btn lab-step-btn" data-stage="7"><span class="step-num">&#9879;</span> <span class="step-name">Lab</span></button>
+    </nav>
+
+  </section>
+
+  <!-- ── KIDS VIEW (Fixed 1600x900 Virtual Stage, Scaled with CSS Transform, Letterboxed, Centred, Zero WebGL) ── -->
+  <section class="view" id="view-kids" aria-label="Kids Mode" hidden>
+    <div id="kids-stage-viewport">
+      <!-- 1. LIGHT KIDS TOP BAR (Cream & Sky-Blue) -->
+      <header id="kids-top-bar">
+        <div class="kids-bar-left">
+          <button class="kid-circle-btn btn-kid-home" id="btn-kid-home" title="Go to BioPulse Landing" aria-label="Home">
+            <svg class="top-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+          </button>
+          <button class="kid-circle-btn btn-kid-sound" id="btn-replay-voice" title="Listen Again" aria-label="Listen Again">
+            <span class="sound-emoji">🔊</span>
+          </button>
+        </div>
+
+        <!-- 8 Big Round Icon Buttons with Cutout Sprites (72px circles) -->
+        <nav class="kids-stepper" id="kids-stepper" aria-label="Kids Stages">
+          <button class="kid-step-btn active" data-stage="0" title="Wave Machine">
+            <img class="step-sprite" src="assets/kids/radar_machine.png?v=202610250100" alt="Radar">
+            <span class="step-status-badge">★</span>
+          </button>
+          <button class="kid-step-btn locked" data-stage="1" title="Breathing & Heart">
+            <img class="step-sprite" src="assets/kids/lungs_happy.svg?v=202610250100" alt="Lungs">
+            <span class="step-status-badge">🔒</span>
+          </button>
+          <button class="kid-step-btn locked" data-stage="2" title="Bouncy Wave">
+            <img class="step-sprite" src="assets/kids/bouncy_ball.svg?v=202610250100" alt="Ball">
+            <span class="step-status-badge">🔒</span>
+          </button>
+          <button class="kid-step-btn locked" data-stage="3" title="Magic Blender">
+            <img class="step-sprite" src="assets/kids/blender_happy.png?v=202610250100" alt="Blender">
+            <span class="step-status-badge">🔒</span>
+          </button>
+          <button class="kid-step-btn locked" data-stage="4" title="Magic Strainer">
+            <img class="step-sprite" src="assets/kids/strainer_happy.png?v=202610250100" alt="Strainer">
+            <span class="step-status-badge">🔒</span>
+          </button>
+          <button class="kid-step-btn locked" data-stage="5" title="Toy Camera">
+            <img class="step-sprite" src="assets/kids/toy_camera.png?v=202610250100" alt="Camera">
+            <span class="step-status-badge">🔒</span>
+          </button>
+          <button class="kid-step-btn locked" data-stage="6" title="Robot Screen">
+            <img class="step-sprite" src="assets/kids/robot_screen_monitor.png?v=202610250100" alt="Screen">
+            <span class="step-status-badge">🔒</span>
+          </button>
+          <button class="kid-step-btn lab-btn locked" data-stage="7" title="Free Lab">
+            <img class="step-sprite" src="assets/kids/star_gold.svg?v=202610250100" alt="Star">
+            <span class="step-status-badge">🔒</span>
+          </button>
+        </nav>
+
+        <!-- Hidden Parent Gate Button (Hold 3 Seconds) -->
+        <div class="kids-bar-right">
+          <button class="kid-parent-btn" id="parent-gate-trigger" title="Parents: Hold 3s" aria-label="Parents hold 3s">
+            <div class="hold-ring" id="parent-hold-ring"></div>
+            <span class="parent-lock-ico">🔒</span>
+            <span class="parent-label">Parents</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- 2. INSTRUCTION BANNER (At most 3-6 words, Spoken Aloud) -->
+      <div id="kids-instruction-banner">
+        <span class="instruction-badge" id="instruction-badge">🪄</span>
+        <span class="instruction-text" id="spoken-instruction-text">Drag the boy!</span>
+      </div>
+
+      <!-- 3. SCENE ARENA (Fixed Coordinates in 1600x900) -->
+      <main id="kids-playground">
+        <div id="kids-bg-layer" class="kids-bg-layer"></div>
+        <canvas id="kids-canvas" width="1600" height="900" aria-label="Kids interactive illustration"></canvas>
+
+        <!-- Ground Line Floor Indicator -->
+        <div id="ground-line"></div>
+
+        <!-- PULSEBOT MASCOT (In corner, with speech bubble) -->
+        <div id="kids-pulsebot-dock">
+          <img id="pulsebot-sprite" src="assets/kids/pulsebot_happy.png?v=202610250100" alt="PulseBot mascot" draggable="false">
+          <div id="pulsebot-bubble" class="pulsebot-bubble">Hi friend! 🎈</div>
+        </div>
+
+        <!-- STAGE SPRITES -->
+        <div id="kids-sprites-layer">
+          <!-- Stage 1, 2, 3, FreeLab: Radar Machine on Floor Line -->
+          <div id="sprite-radar" class="stage-sprite" style="display:none;">
+            <img src="assets/kids/radar_machine.png?v=202610250100" alt="Radar machine" draggable="false">
+          </div>
+
+          <!-- Stage 1, FreeLab: Standing Boy on Floor Line -->
+          <div id="sprite-boy-standing" class="stage-sprite draggable-sprite" style="display:none;">
+            <img src="assets/kids/boy_standing.png?v=202610250100" alt="Boy standing" draggable="false">
+            <div class="drag-hint">↔ Drag me!</div>
+          </div>
+
+          <!-- Stage 2, 3: Sleeping Boy in Bed on Floor Line -->
+          <div id="sprite-boy-sleeping" class="stage-sprite" style="display:none;">
+            <img src="assets/kids/boy_sleeping.png?v=202610250100" alt="Boy sleeping in bed" draggable="false">
+            <!-- Stage 2 X-Ray Magnifier Bubble anchored on chest -->
+            <div id="xray-bubble" class="xray-bubble" style="display:none;">
+              <div class="xray-rim"></div>
+              <img id="xray-lungs" src="assets/kids/lungs_happy.svg?v=202610250100" alt="Lungs" draggable="false">
+              <img id="xray-heart" src="assets/kids/heart_happy.svg?v=202610250100" alt="Heart" draggable="false">
+            </div>
+          </div>
+
+          <!-- Stage 4: Magic Blender with Squiggle Display Above -->
+          <div id="sprite-blender-deck" style="display:none;">
+            <div class="blender-scope-box">
+              <canvas id="blender-scope-canvas" width="380" height="90"></canvas>
+            </div>
+            <div id="sprite-blender" class="stage-sprite">
+              <img src="assets/kids/blender_happy.png?v=202610250100" alt="Blender" draggable="false">
+              <div id="blender-froth" class="blender-froth"></div>
+            </div>
+          </div>
+
+          <!-- Stage 5: Magic Strainer hovering just above squiggle -->
+          <div id="sprite-strainer-deck" style="display:none;">
+            <div class="strainer-scope-box">
+              <canvas id="strainer-scope-canvas" width="840" height="110"></canvas>
+            </div>
+            <div id="sprite-strainer" class="stage-sprite draggable-sprite">
+              <img src="assets/kids/strainer_happy.png?v=202610250100" alt="Strainer" draggable="false">
+              <div class="drag-hint">↔ Drag strainer!</div>
+            </div>
+          </div>
+
+          <!-- Stage 6: Toy Camera placed above signal -->
+          <div id="sprite-camera-deck" style="display:none;">
+            <div id="sprite-camera" class="stage-sprite">
+              <img src="assets/kids/toy_camera.png?v=202610250100" alt="Camera" draggable="false">
+              <div id="camera-flash" class="camera-flash"></div>
+            </div>
+            <div class="camera-scope-box">
+              <canvas id="camera-scope-canvas" width="840" height="110"></canvas>
+            </div>
+          </div>
+
+          <!-- Stage 7: Robot Belly Screen -->
+          <div id="sprite-screen" class="stage-sprite" style="display:none;">
+            <img src="assets/kids/robot_screen_monitor.png?v=202610250100" alt="Belly screen" draggable="false">
+            <div id="belly-screen-content">
+              <div class="belly-hearts-row">
+                <span class="heart-pulse-icon">❤️</span>
+                <span class="heart-pulse-icon">❤️</span>
+                <span class="heart-pulse-icon">❤️</span>
+              </div>
+              <div class="belly-lungs-row">
+                <img src="assets/kids/lungs_happy.svg" class="belly-lungs-img" alt="Lungs" draggable="false">
+                <span class="breath-puff">💨</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Free Lab Composed Squiggle Scope -->
+          <div id="freelab-scope-deck" style="display:none;">
+            <canvas id="freelab-scope-canvas" width="400" height="90"></canvas>
+          </div>
+        </div>
+
+        <!-- 4. CONTROLS DOCK / DOCKED TOY TRAY -->
+        <div id="kids-controls-dock">
+          <!-- Stage 1 Dial: Gentle Waves / Quick Waves -->
+          <div id="ctrl-dial-deck" class="kids-ctrl-card" style="display:none;">
+            <button class="kid-choice-btn active" id="btn-wave-slow">
+              <span class="choice-icon">🐢</span>
+              <span class="choice-text">Gentle Waves</span>
+            </button>
+            <button class="kid-choice-btn" id="btn-wave-fast">
+              <span class="choice-icon">🐇</span>
+              <span class="choice-text">Quick Waves</span>
+            </button>
+          </div>
+
+          <!-- Stage 2 Sliders: Lungs & Heart -->
+          <div id="ctrl-sliders-deck" class="kids-ctrl-card" style="display:none;">
+            <div class="animal-slider-pill">
+              <span class="pill-icon">🫁</span>
+              <button class="btn-animal" id="btn-lung-slow" aria-label="Slow breathing">🐢</button>
+              <input type="range" class="kid-range" id="kid-slider-lungs" min="1" max="100" value="50">
+              <button class="btn-animal" id="btn-lung-fast" aria-label="Fast breathing">🐇</button>
+            </div>
+            <div class="animal-slider-pill">
+              <span class="pill-icon">❤️</span>
+              <button class="btn-animal" id="btn-heart-slow" aria-label="Slow heart">🐢</button>
+              <input type="range" class="kid-range" id="kid-slider-heart" min="1" max="100" value="50">
+              <button class="btn-animal" id="btn-heart-fast" aria-label="Fast heart">🐇</button>
+            </div>
+          </div>
+
+          <!-- Stage 4 Bug Buttons -->
+          <div id="ctrl-bugs-deck" class="kids-ctrl-card" style="display:none;">
+            <button class="kid-bug-btn" id="btn-bug-fan" title="Fan Bug">
+              <img src="assets/kids/bug_fan.svg" alt="Fan Bug">
+              <span>Fan</span>
+            </button>
+            <button class="kid-bug-btn" id="btn-bug-walk" title="Footsteps Bug">
+              <img src="assets/kids/bug_walking.svg" alt="Walking Bug">
+              <span>Feet</span>
+            </button>
+            <button class="kid-bug-btn" id="btn-bug-phone" title="Phone Bug">
+              <img src="assets/kids/bug_phone.svg" alt="Phone Bug">
+              <span>Phone</span>
+            </button>
+          </div>
+
+          <!-- Stage 6 Camera Slider -->
+          <div id="ctrl-camera-deck" class="kids-ctrl-card" style="display:none;">
+            <div class="animal-slider-pill">
+              <span class="pill-icon">📸</span>
+              <button class="btn-animal" id="btn-cam-few" aria-label="Few photos">🐢</button>
+              <input type="range" class="kid-range" id="kid-slider-cam" min="2" max="50" value="45">
+              <button class="btn-animal" id="btn-cam-many" aria-label="Many photos">🐇</button>
+            </div>
+        </div>
+
+        <!-- Free Lab Docked Toy Tray directly on playground floor -->
+        <div id="freelab-tray-deck" class="freelab-tray-deck" style="display:none;">
+          <div class="tray-bugs-group">
+            <button class="tray-bug-btn" id="tray-bug-fan" title="Fan Bug"><img src="assets/kids/bug_fan.svg" alt="Fan"></button>
+            <button class="tray-bug-btn" id="tray-bug-walk" title="Feet Bug"><img src="assets/kids/bug_walking.svg" alt="Feet"></button>
+            <button class="tray-bug-btn" id="tray-bug-phone" title="Phone Bug"><img src="assets/kids/bug_phone.svg" alt="Phone"></button>
+          </div>
+          <div class="tray-slider-group">
+            <div class="animal-slider-pill mini-pill">
+              <span class="pill-icon">🫁</span>
+              <span class="btn-animal-label">🐢</span>
+              <input type="range" class="kid-range mini-range" id="freelab-slider-lungs" min="1" max="100" value="50">
+              <span class="btn-animal-label">🐇</span>
+            </div>
+            <div class="animal-slider-pill mini-pill">
+              <span class="pill-icon">❤️</span>
+              <span class="btn-animal-label">🐢</span>
+              <input type="range" class="kid-range mini-range" id="freelab-slider-heart" min="1" max="100" value="50">
+              <span class="btn-animal-label">🐇</span>
+            </div>
+            <div class="animal-slider-pill mini-pill">
+              <span class="pill-icon">📸</span>
+              <span class="btn-animal-label">🐢</span>
+              <input type="range" class="kid-range mini-range" id="freelab-slider-cam" min="2" max="50" value="45">
+              <span class="btn-animal-label">🐇</span>
+            </div>
+          </div>
+          <div class="tray-actions-group">
+            <button class="tray-action-btn btn-freelab-break" id="btn-freelab-break">
+              <span>💥</span>
+              <span>Break it!</span>
+            </button>
+            <button class="tray-action-btn btn-open-stickers" id="btn-open-stickers">
+              <span>📖</span>
+              <span>Stickers!</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Confetti Canvas -->
+        <canvas id="kids-confetti-canvas" width="1600" height="900" pointer-events="none"></canvas>
+      </main>
+
+      <!-- 5. CHUNKY BOTTOM ACTION BAR -->
+      <footer id="kids-bottom-bar">
+        <button class="kid-action-btn btn-kid-back" id="btn-kid-prev" title="Previous Stage" aria-label="Back">
+          <span class="btn-icon">⬅️</span>
+          <span class="btn-label">Back</span>
+        </button>
+
+        <div class="kids-fun-buttons">
+          <button class="kid-action-btn btn-kid-break" id="btn-kid-break" title="Break It!" aria-label="Break It">
+            <span class="btn-icon">💥</span>
+            <span class="btn-label">Break it!</span>
+          </button>
+          <button class="kid-action-btn btn-kid-fix" id="btn-kid-fix" title="Fix It!" aria-label="Fix It" style="display:none;">
+            <span class="btn-icon">✨</span>
+            <span class="btn-label">Fix it!</span>
+          </button>
+        </div>
+
+        <button class="kid-action-btn btn-kid-next" id="btn-kid-next" title="Next Stage" aria-label="Next">
+          <span class="btn-label">Next</span>
+          <span class="btn-icon">➡️</span>
+        </button>
+      </footer>
+
+      <!-- 6. STICKER BOOK MODAL -->
+      <div id="sticker-book-modal" class="kids-modal" hidden>
+        <div class="modal-card">
+          <div class="modal-header">
+            <h2>🌟 My PulseBot Sticker Album! 🌟</h2>
+            <button class="modal-close-btn" id="btn-close-stickers">✖</button>
+          </div>
+          <div class="stickers-grid" id="stickers-album-grid">
+            <!-- 8 Collected Stickers -->
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. PARENT GATE MODAL -->
+      <div id="parent-gate-modal" class="kids-modal" hidden>
+        <div class="modal-card parent-modal-card">
+          <div class="modal-header">
+            <h2>🔒 Parent Settings</h2>
+            <button class="modal-close-btn" id="btn-close-parent-gate">✖</button>
+          </div>
+          <p class="parent-note">Switch modes or return to the main landing page:</p>
+          <div class="parent-gate-options">
+            <button class="parent-choice-btn btn-open-sci" id="btn-gate-sci">
+              <span class="ico">🔬</span>
+              <span>Scientific Mode</span>
+            </button>
+            <button class="parent-choice-btn btn-open-landing" id="btn-gate-home">
+              <span class="ico">🏠</span>
+              <span>BioPulse 3D Landing</span>
+            </button>
+            <button class="parent-choice-btn btn-stay-kids" id="btn-gate-stay">
+              <span class="ico">🎈</span>
+              <span>Stay in Kids Mode</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ─── Scripts (load order matters) ─── -->
+<script src="js/vendor/three.min.js?v=202610242359"></script>
+<script src="js/vendor/GLTFLoader.js?v=202610242359"></script>
+<script src="models/biopulse_anatomy_embedded.js?v=202610242359"></script>
+<script src="js/sim.js?v=202610242359"></script>
+<script src="js/router.js?v=202610242359"></script>
+<script src="js/scientific.js?v=202610242359"></script>
+<script src="js/kids.js?v=202610242359"></script>
+<script src="js/landing.js?v=202610242359"></script>
+
+</body>
+</html>

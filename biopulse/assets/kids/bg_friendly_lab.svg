@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="labWall" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F0F9FF"/>
+      <stop offset="70%" stop-color="#E0F2FE"/>
+      <stop offset="100%" stop-color="#BAE6FD"/>
+    </linearGradient>
+    <linearGradient id="labFloor" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E2E8F0"/>
+      <stop offset="100%" stop-color="#CBD5E1"/>
+    </linearGradient>
+    <linearGradient id="benchGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFDF7"/>
+      <stop offset="100%" stop-color="#F1F5F9"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Wall -->
+  <rect x="0" y="0" width="1920" height="780" fill="url(#labWall)"/>
+
+  <!-- High Tech Pastel Wall Grid -->
+  <g stroke="#BAE6FD" stroke-width="4" opacity="0.5">
+    <line x1="300" y1="0" x2="300" y2="780"/>
+    <line x1="600" y1="0" x2="600" y2="780"/>
+    <line x1="900" y1="0" x2="900" y2="780"/>
+    <line x1="1200" y1="0" x2="1200" y2="780"/>
+    <line x1="1500" y1="0" x2="1500" y2="780"/>
+  </g>
+
+  <!-- Round Wall Monitor Display (Center Left) -->
+  <g transform="translate(350 200)">
+    <rect x="0" y="0" width="340" height="240" rx="36" fill="#FFFDF7" stroke="#2D4B5A" stroke-width="12"/>
+    <rect x="20" y="20" width="300" height="200" rx="24" fill="#0F172A"/>
+    <!-- Sine wiggle line on screen -->
+    <path d="M 30 120 Q 70 60 110 120 T 190 120 T 270 120 T 310 120" fill="none" stroke="#34D399" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="190" cy="120" r="12" fill="#FDE68A"/>
+  </g>
+
+  <!-- Cute Wall Clock / Sensor (Center Right) -->
+  <g transform="translate(1300 240)">
+    <circle cx="0" cy="0" r="100" fill="#FFFDF7" stroke="#2D4B5A" stroke-width="12"/>
+    <circle cx="0" cy="0" r="80" fill="#FDE68A"/>
+    <!-- Compass/dial hand -->
+    <line x1="0" y1="0" x2="35" y2="-45" stroke="#2D4B5A" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="0" cy="0" r="14" fill="#FB7185"/>
+  </g>
+
+  <!-- Floor -->
+  <rect x="0" y="780" width="1920" height="300" fill="url(#labFloor)"/>
+  <line x1="0" y1="780" x2="1920" y2="780" stroke="#2D4B5A" stroke-width="14"/>
+
+  <!-- Long Curved Futuristic Lab Bench -->
+  <g transform="translate(160 620)">
+    <rect x="0" y="0" width="1600" height="240" rx="40" fill="url(#benchGrad)" stroke="#2D4B5A" stroke-width="14"/>
+    <line x1="40" y1="60" x2="1560" y2="60" stroke="#CBD5E1" stroke-width="8"/>
+
+    <!-- Cute Test Tubes Rack -->
+    <g transform="translate(200 -70)">
+      <rect x="0" y="70" width="180" height="30" rx="10" fill="#FDE68A" stroke="#2D4B5A" stroke-width="8"/>
+      <!-- Tube 1 (Mint) -->
+      <rect x="20" y="0" width="30" height="90" rx="15" fill="#E0F2FE" stroke="#2D4B5A" stroke-width="8"/>
+      <path d="M 22 45 L 48 45 L 48 75 Q 48 88 35 88 Q 22 88 22 75 Z" fill="#34D399"/>
+      <!-- Tube 2 (Coral) -->
+      <rect x="75" y="0" width="30" height="90" rx="15" fill="#E0F2FE" stroke="#2D4B5A" stroke-width="8"/>
+      <path d="M 77 30 L 103 30 L 103 75 Q 103 88 90 88 Q 77 88 77 75 Z" fill="#FB7185"/>
+      <!-- Tube 3 (Yellow) -->
+      <rect x="130" y="0" width="30" height="90" rx="15" fill="#E0F2FE" stroke="#2D4B5A" stroke-width="8"/>
+      <path d="M 132 55 L 158 55 L 158 75 Q 158 88 145 88 Q 132 88 132 75 Z" fill="#FDE68A"/>
+    </g>
+
+    <!-- Round Flask with Bubbles -->
+    <g transform="translate(1300 -100)">
+      <path d="M 75 0 L 105 0 L 105 50 L 150 120 Q 160 140 140 150 L 40 150 Q 20 140 30 120 L 75 50 Z" fill="#E0F2FE" stroke="#2D4B5A" stroke-width="8" stroke-linejoin="round"/>
+      <path d="M 45 110 L 135 110 L 140 140 L 40 140 Z" fill="#38BDF8"/>
+      <circle cx="90" cy="90" r="10" fill="#FFFDF7" opacity="0.8"/>
+      <circle cx="80" cy="60" r="6" fill="#FFFDF7" opacity="0.8"/>
+    </g>
+  </g>
+</svg>

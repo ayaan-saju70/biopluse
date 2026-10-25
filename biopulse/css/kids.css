@@ -1,0 +1,1272 @@
+/* ═══════════════════════════════════════════════════════════
+   kids.css — BioPulse Kids Mode Complete Design System
+   Fixed 1600x900 Virtual Stage • CSS Transform Uniform Scaling
+   Direct Manipulation • Cutout Sprites • Letterboxed 100dvh
+   Zero WebGL • 8 Stages (1-7 + Free Lab)
+   ════════════════════════════════════════════════════════════ */
+
+:root {
+  --kid-cream: #FFFDF7;
+  --kid-card: #FFFFFF;
+  --kid-yellow: #FDE68A;
+  --kid-amber: #F59E0B;
+  --kid-sky: #38BDF8;
+  --kid-blue: #0284C7;
+  --kid-coral: #FB7185;
+  --kid-rose: #E11D48;
+  --kid-mint: #34D399;
+  --kid-green: #059669;
+  --kid-purple: #C084FC;
+  --kid-ink: #1E293B;
+  --kid-border: 4px solid #1E293B;
+  --kid-shadow: 0 8px 0 #1E293B;
+  --kid-shadow-sm: 0 4px 0 #1E293B;
+  --kid-shadow-active: 0 2px 0 #1E293B;
+  --stage-scale: 1;
+}
+
+/* ── Container Exclusivity & Reset (Fit Window, 100dvh, Letterboxed) ── */
+#view-kids {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background-color: #0F172A;
+  color: var(--kid-ink);
+  font-family: 'Fredoka', cursive, sans-serif;
+  overflow: hidden;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Ensure old Scientific bar never reserves space */
+body[data-view="kids"] #top-bar {
+  display: none !important;
+}
+
+/* ── Virtual 1600x900 Stage Viewport ── */
+#kids-stage-viewport {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1600px;
+  height: 900px;
+  transform: translate(-50%, -50%) scale(var(--stage-scale, 1));
+  transform-origin: center center;
+  overflow: hidden;
+  background-color: var(--kid-cream);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  user-select: none;
+}
+
+/* ── 1. Light Kids Top Bar (Cream & Sky-Blue) ── */
+#kids-top-bar {
+  height: 96px;
+  background: #FFFFFF;
+  border-bottom: var(--kid-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  z-index: 60;
+  box-shadow: 0 6px 16px rgba(30, 41, 59, 0.05);
+  flex-shrink: 0;
+  gap: 20px;
+}
+
+.kids-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* 72px Circular Action Buttons (Home, Sound) */
+.kid-circle-btn {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--kid-yellow);
+  border: var(--kid-border);
+  box-shadow: var(--kid-shadow-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  flex-shrink: 0;
+}
+.kid-circle-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--kid-shadow);
+  background: #FEF08A;
+}
+.kid-circle-btn:active {
+  transform: translateY(2px);
+  box-shadow: var(--kid-shadow-active);
+}
+.btn-kid-home .top-icon {
+  width: 36px;
+  height: 36px;
+  color: var(--kid-ink);
+}
+.btn-kid-sound .sound-emoji {
+  font-size: 32px;
+  line-height: 1;
+}
+
+/* 8 Big Round Stepper Buttons with Cutout Sprites (72px circles) */
+.kids-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex: 1;
+  padding: 4px 8px;
+}
+
+.kid-step-btn {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 4px solid #CBD5E1;
+  box-shadow: 0 4px 0 #CBD5E1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.2s ease, background 0.2s ease;
+  flex-shrink: 0;
+}
+.kid-step-btn:hover:not(.locked) {
+  transform: translateY(-3px);
+  box-shadow: var(--kid-shadow);
+}
+.kid-step-btn .step-sprite {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  pointer-events: none;
+}
+.kid-step-btn .step-status-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 2.5px solid var(--kid-ink);
+  font-size: 13px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 0 var(--kid-ink);
+}
+
+.kid-step-btn.completed {
+  background: #FEF08A;
+  border-color: var(--kid-amber);
+  box-shadow: 0 5px 0 var(--kid-amber);
+}
+.kid-step-btn.completed .step-status-badge {
+  background: var(--kid-amber);
+  color: #FFFFFF;
+}
+
+.kid-step-btn.active {
+  background: var(--kid-sky);
+  border: var(--kid-border);
+  box-shadow: var(--kid-shadow-sm);
+  transform: scale(1.15) translateY(-3px);
+}
+.kid-step-btn.active .step-sprite {
+  animation: kidStepBounce 1.6s infinite ease-in-out;
+}
+
+.kid-step-btn.locked {
+  background: #F1F5F9;
+  border-color: #E2E8F0;
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.kid-step-btn.locked .step-sprite {
+  filter: grayscale(1);
+}
+.kid-step-btn.locked .step-status-badge {
+  background: #E2E8F0;
+  color: #64748B;
+}
+
+@keyframes kidStepBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px) scale(1.08); }
+}
+
+/* Parent Gate Trigger */
+.kids-bar-right {
+  display: flex;
+  align-items: center;
+}
+.kid-parent-btn {
+  height: 56px;
+  padding: 0 18px;
+  border-radius: 20px;
+  background: #F1F5F9;
+  border: 3.5px solid #CBD5E1;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Fredoka', cursive, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--kid-ink);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+}
+.kid-parent-btn:active {
+  background: #E2E8F0;
+}
+.parent-lock-ico {
+  font-size: 1.25rem;
+}
+.hold-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  border: 4px solid var(--kid-amber);
+  opacity: 0;
+  transform: scale(0.85);
+  transition: transform 3s linear, opacity 0.2s ease;
+  pointer-events: none;
+}
+.kid-parent-btn.holding .hold-ring {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ── 2. Instruction Banner (3-6 Words) ── */
+#kids-instruction-banner {
+  height: 58px;
+  background: var(--kid-yellow);
+  border-bottom: var(--kid-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--kid-ink);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  z-index: 50;
+  flex-shrink: 0;
+  animation: bannerSlideDown 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.instruction-badge {
+  font-size: 1.7rem;
+  animation: bannerWiggle 2s infinite ease-in-out;
+}
+.instruction-text {
+  letter-spacing: 0.5px;
+}
+
+@keyframes bannerSlideDown {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes bannerWiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-8deg); }
+  75% { transform: rotate(8deg); }
+}
+
+/* ── 3. Playground Arena (1600x636 Fixed Coordinates) ── */
+#kids-playground {
+  position: relative;
+  width: 1600px;
+  height: 636px;
+  overflow: hidden;
+  background-color: #E0F2FE;
+}
+
+/* Scenic Background Layer */
+.kids-bg-layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+/* Ground Floor Line at Y = 494px */
+#ground-line {
+  position: absolute;
+  top: 494px;
+  left: 0;
+  width: 1600px;
+  height: 8px;
+  background: #94A3B8;
+  border-top: 3.5px solid var(--kid-ink);
+  z-index: 8;
+}
+#ground-line::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 0;
+  width: 1600px;
+  height: 138px;
+  background: #CBD5E1;
+  z-index: 7;
+}
+
+/* 2D Canvas Layer for Waves & Particles */
+#kids-canvas {
+  position: absolute;
+  inset: 0;
+  width: 1600px;
+  height: 636px;
+  z-index: 12;
+  pointer-events: none;
+}
+
+/* PulseBot Mascot Dock (In corner with speech bubble) */
+#kids-pulsebot-dock {
+  position: absolute;
+  top: 24px;
+  left: 32px;
+  z-index: 25;
+  width: 150px;
+  height: 150px;
+  cursor: pointer;
+  filter: drop-shadow(0 12px 18px rgba(30, 41, 59, 0.2));
+  animation: botHover 3.2s infinite ease-in-out;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+#kids-pulsebot-dock:hover {
+  transform: scale(1.08) rotate(-3deg);
+}
+#pulsebot-sprite {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+.pulsebot-bubble {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  background: #FFFFFF;
+  border: 3.5px solid var(--kid-ink);
+  border-radius: 18px;
+  padding: 6px 16px;
+  font-size: 1rem;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 4px 0 var(--kid-ink);
+  pointer-events: none;
+}
+.pulsebot-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0 8px 8px;
+  border-style: solid;
+  border-color: transparent transparent var(--kid-ink);
+  display: block;
+  width: 0;
+}
+
+@keyframes botHover {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+/* Direct Manipulation Sprite Layer */
+#kids-sprites-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  pointer-events: auto;
+}
+
+.stage-sprite {
+  position: absolute;
+}
+
+/* Stage 1, 2, 3, FreeLab: Radar Machine (Sitting on Floor Line at Y = 494) */
+#sprite-radar {
+  top: 234px;
+  left: 100px;
+  width: 213px;
+  height: 260px;
+  filter: drop-shadow(0 12px 20px rgba(30, 41, 59, 0.2));
+}
+#sprite-radar img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Stage 1, FreeLab: Standing Boy (Feet on Floor Line at Y = 494) */
+#sprite-boy-standing {
+  top: 124px;
+  left: 1050px;
+  width: 147px;
+  height: 370px;
+  cursor: grab;
+  touch-action: none;
+  filter: drop-shadow(0 14px 24px rgba(30, 41, 59, 0.25));
+  animation: boyBreathe 3s infinite ease-in-out;
+}
+#sprite-boy-standing:active {
+  cursor: grabbing;
+}
+#sprite-boy-standing img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+.drag-hint {
+  position: absolute;
+  top: -46px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--kid-yellow);
+  border: 3px solid var(--kid-ink);
+  border-radius: 14px;
+  padding: 4px 14px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 4px 0 var(--kid-ink);
+  animation: hintBob 1.5s infinite ease-in-out;
+  pointer-events: none;
+}
+.stage-freelab .drag-hint {
+  display: none !important;
+}
+
+@keyframes hintBob {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-6px); }
+}
+@keyframes boyBreathe {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.02, 1.03); }
+}
+
+/* Stage 2 & 3: Sleeping Boy in Bed (Base on Floor Line at Y = 494) */
+#sprite-boy-sleeping {
+  top: 164px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 364px;
+  height: 330px;
+  filter: drop-shadow(0 14px 24px rgba(30, 41, 59, 0.3));
+}
+#sprite-boy-sleeping img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Stage 2 X-Ray Magnifier Bubble anchored on chest */
+.xray-bubble {
+  position: absolute;
+  top: 70px;
+  left: 105px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(224, 242, 254, 0.92) 100%);
+  border: 4.5px solid var(--kid-sky);
+  box-shadow: 0 0 24px rgba(56, 189, 248, 0.6), inset 0 0 14px rgba(56, 189, 248, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation: bubbleFloat 3s infinite ease-in-out;
+  pointer-events: none;
+}
+#xray-lungs {
+  position: absolute;
+  width: 78%;
+  height: 78%;
+  object-fit: contain;
+  transform-origin: center center;
+  animation: lungsBreathing 2.4s infinite ease-in-out;
+}
+#xray-heart {
+  position: absolute;
+  width: 44%;
+  height: 44%;
+  object-fit: contain;
+  transform-origin: center center;
+  animation: heartPumping 1s infinite cubic-bezier(0.2, 0.8, 0.4, 1.2);
+}
+
+@keyframes bubbleFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes lungsBreathing {
+  0%, 100% { transform: scale(0.85); }
+  50% { transform: scale(1.15); }
+}
+@keyframes heartPumping {
+  0%, 100% { transform: scale(0.85); }
+  25% { transform: scale(1.25); }
+  45% { transform: scale(0.95); }
+  65% { transform: scale(1.15); }
+}
+
+/* Stage 4: Magic Blender & Squiggle Display Above */
+#sprite-blender-deck {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.blender-scope-box {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 110px;
+  background: #FFFFFF;
+  border: var(--kid-border);
+  border-radius: 24px;
+  box-shadow: var(--kid-shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  pointer-events: auto;
+}
+#blender-scope-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+#sprite-blender {
+  top: 174px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 210px;
+  height: 320px;
+  filter: drop-shadow(0 14px 24px rgba(30, 41, 59, 0.2));
+  pointer-events: auto;
+}
+#sprite-blender img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.blender-froth {
+  position: absolute;
+  top: 25%;
+  left: 20%;
+  width: 60%;
+  height: 35%;
+  border-radius: 30px;
+  background: radial-gradient(circle, rgba(251, 113, 133, 0.8) 0%, rgba(253, 230, 138, 0.8) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+#sprite-blender.blending .blender-froth {
+  opacity: 0.9;
+  animation: frothSpin 0.3s infinite linear;
+}
+@keyframes frothSpin {
+  0% { transform: rotate(0deg) scale(0.95); }
+  50% { transform: rotate(180deg) scale(1.05); }
+  100% { transform: rotate(360deg) scale(0.95); }
+}
+
+/* Stage 5: Magic Strainer hovering above squiggle */
+#sprite-strainer-deck {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.strainer-scope-box {
+  position: absolute;
+  top: 260px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1100px;
+  height: 130px;
+  background: #FFFFFF;
+  border: var(--kid-border);
+  border-radius: 24px;
+  box-shadow: var(--kid-shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  pointer-events: auto;
+}
+#strainer-scope-canvas {
+  width: 100%;
+  height: 100%;
+}
+#sprite-strainer {
+  top: 70px;
+  left: 700px;
+  width: 220px;
+  height: 190px;
+  cursor: grab;
+  touch-action: none;
+  filter: drop-shadow(0 14px 24px rgba(30, 41, 59, 0.25));
+  z-index: 30;
+  pointer-events: auto;
+}
+#sprite-strainer:active {
+  cursor: grabbing;
+}
+#sprite-strainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* Stage 6: Toy Camera placed above signal */
+#sprite-camera-deck {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+#sprite-camera {
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 230px;
+  height: 190px;
+  filter: drop-shadow(0 14px 24px rgba(30, 41, 59, 0.2));
+  pointer-events: auto;
+}
+#sprite-camera img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.camera-scope-box {
+  position: absolute;
+  top: 260px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1100px;
+  height: 140px;
+  background: #FFFFFF;
+  border: var(--kid-border);
+  border-radius: 24px;
+  box-shadow: var(--kid-shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  pointer-events: auto;
+}
+#camera-scope-canvas {
+  width: 100%;
+  height: 100%;
+}
+.camera-flash {
+  position: fixed;
+  inset: 0;
+  background: #FFFFFF;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1000;
+}
+.camera-flash.flash-active {
+  animation: flashBurst 0.35s ease-out forwards;
+}
+@keyframes flashBurst {
+  0% { opacity: 0.95; }
+  100% { opacity: 0; }
+}
+
+/* Stage 7: Robot Belly Screen */
+#sprite-screen {
+  top: 214px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+  height: 280px;
+  filter: drop-shadow(0 16px 28px rgba(30, 41, 59, 0.25));
+}
+#sprite-screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+#belly-screen-content {
+  position: absolute;
+  top: 22%;
+  left: 20%;
+  width: 60%;
+  height: 56%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  pointer-events: none;
+}
+.belly-hearts-row {
+  display: flex;
+  gap: 8px;
+}
+.heart-pulse-icon {
+  font-size: 2.2rem;
+  display: inline-block;
+  animation: heartThump 1s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.heart-pulse-icon:nth-child(2) { animation-delay: 0.15s; }
+.heart-pulse-icon:nth-child(3) { animation-delay: 0.3s; }
+
+.belly-lungs-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.belly-lungs-img {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+  animation: lungBreathe 2.4s infinite ease-in-out;
+}
+.breath-puff {
+  font-size: 1.6rem;
+  animation: puffFloat 2.4s infinite ease-in-out;
+}
+
+@keyframes heartThump {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.28); }
+  40% { transform: scale(1.05); }
+  60% { transform: scale(1.2); }
+}
+@keyframes lungBreathe {
+  0%, 100% { transform: scale(0.9); }
+  50% { transform: scale(1.2); }
+}
+@keyframes puffFloat {
+  0%, 100% { transform: translateX(0) scale(0.8); opacity: 0.4; }
+  50% { transform: translateX(10px) scale(1.2); opacity: 0.9; }
+}
+
+/* Free Lab Squiggle Scope */
+#freelab-scope-deck {
+  position: absolute;
+  top: 16px;
+  left: 630px;
+  width: 340px;
+  height: 88px;
+  background: #FFFFFF;
+  border: var(--kid-border);
+  border-radius: 20px;
+  box-shadow: var(--kid-shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+#freelab-scope-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── 4. Controls Dock (Stages 1-6 floating bottom cards) ── */
+#kids-controls-dock {
+  position: absolute;
+  bottom: 24px;
+  right: 32px;
+  z-index: 35;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.kids-ctrl-card {
+  background: #FFFFFF;
+  border: var(--kid-border);
+  border-radius: 28px;
+  padding: 12px 20px;
+  box-shadow: var(--kid-shadow);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.kid-choice-btn {
+  height: 56px;
+  padding: 0 20px;
+  border-radius: 20px;
+  background: #F1F5F9;
+  border: 3.5px solid #CBD5E1;
+  font-family: 'Fredoka', cursive, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--kid-ink);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 0 #CBD5E1;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.kid-choice-btn.active {
+  background: var(--kid-yellow);
+  border: var(--kid-border);
+  box-shadow: var(--kid-shadow-sm);
+  transform: translateY(-2px);
+}
+.kid-choice-btn:active {
+  transform: translateY(2px);
+}
+.choice-icon {
+  font-size: 1.5rem;
+}
+
+/* Animal Slider Pill (Lungs & Heart) */
+.animal-slider-pill {
+  background: #FFFFFF;
+  border: 3.5px solid var(--kid-ink);
+  border-radius: 24px;
+  padding: 6px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--kid-shadow-sm);
+}
+.pill-icon {
+  font-size: 1.6rem;
+}
+.btn-animal {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #F1F5F9;
+  border: 2px solid var(--kid-ink);
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 0 var(--kid-ink);
+  transition: transform 0.1s ease;
+}
+.btn-animal:hover {
+  background: var(--kid-yellow);
+  transform: scale(1.08);
+}
+.btn-animal:active {
+  transform: translateY(2px);
+}
+
+.kid-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 140px;
+  height: 16px;
+  border-radius: 10px;
+  background: #E2E8F0;
+  outline: none;
+  border: 2px solid var(--kid-ink);
+}
+.kid-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--kid-yellow);
+  border: 3px solid var(--kid-ink);
+  box-shadow: 0 3px 0 var(--kid-ink);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.kid-range::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+/* Stage 4 Noise Bug Buttons */
+.kid-bug-btn {
+  width: 76px;
+  height: 82px;
+  border-radius: 22px;
+  background: #FFFFFF;
+  border: var(--kid-border);
+  box-shadow: var(--kid-shadow-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease;
+}
+.kid-bug-btn:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: var(--kid-shadow);
+  background: #FFFDF7;
+}
+.kid-bug-btn:active {
+  transform: translateY(2px);
+}
+.kid-bug-btn img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  pointer-events: none;
+}
+.kid-bug-btn span {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--kid-ink);
+}
+
+/* ── Free Lab Docked Toy Tray (Bottom Dock along stage bottom) ── */
+.freelab-tray-deck {
+  position: absolute;
+  top: 514px;
+  left: 50px;
+  width: 1500px;
+  height: 108px;
+  background: #FFFFFF;
+  border: var(--kid-border);
+  border-radius: 30px;
+  box-shadow: var(--kid-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  z-index: 40;
+}
+.tray-bugs-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.tray-bug-btn {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 3.5px solid var(--kid-ink);
+  box-shadow: var(--kid-shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.tray-bug-btn:hover {
+  transform: scale(1.1);
+  background: #FFFDF7;
+}
+.tray-bug-btn:active {
+  transform: translateY(2px);
+}
+.tray-bug-btn img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.tray-slider-group {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.mini-pill {
+  padding: 4px 14px;
+}
+.mini-range {
+  width: 110px;
+}
+
+.tray-action-btn {
+  height: 68px;
+  padding: 0 24px;
+  border-radius: 22px;
+  background: var(--kid-yellow);
+  border: var(--kid-border);
+  box-shadow: var(--kid-shadow-sm);
+  font-family: 'Fredoka', cursive, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--kid-ink);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.tray-action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--kid-shadow);
+}
+.tray-action-btn:active {
+  transform: translateY(2px);
+}
+
+.tray-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.btn-freelab-break {
+  background: var(--kid-coral) !important;
+  color: #FFFFFF !important;
+  text-shadow: 0 2px 0 var(--kid-ink);
+}
+.btn-animal-label {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+/* ── 5. Chunky Bottom Action Bar (Back, Break it, Next) ── */
+#kids-bottom-bar {
+  height: 110px;
+  background: #FFFFFF;
+  border-top: var(--kid-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  z-index: 60;
+  box-shadow: 0 -6px 16px rgba(30, 41, 59, 0.05);
+  flex-shrink: 0;
+  gap: 20px;
+}
+
+.kid-action-btn {
+  height: 76px;
+  min-width: 170px;
+  border-radius: 26px;
+  border: var(--kid-border);
+  box-shadow: var(--kid-shadow);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-family: 'Fredoka', cursive, sans-serif;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--kid-ink);
+  cursor: pointer;
+  padding: 0 32px;
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease, background 0.15s ease;
+  user-select: none;
+}
+.kid-action-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 11px 0 var(--kid-ink);
+}
+.kid-action-btn:active {
+  transform: translateY(3px);
+  box-shadow: var(--kid-shadow-active);
+}
+
+.btn-kid-back {
+  background: #E2E8F0;
+}
+.btn-kid-next {
+  background: var(--kid-mint);
+  color: #FFFFFF;
+  text-shadow: 0 2px 0 var(--kid-ink);
+}
+.btn-kid-next:hover {
+  background: #10B981;
+}
+
+.kids-fun-buttons {
+  display: flex;
+  gap: 14px;
+}
+
+.btn-kid-break {
+  background: var(--kid-coral);
+  color: #FFFFFF;
+  text-shadow: 0 2px 0 var(--kid-ink);
+}
+.btn-kid-break:hover {
+  background: #F43F5E;
+}
+
+.btn-kid-fix {
+  background: var(--kid-yellow);
+  animation: pulsePop 1.2s infinite ease-in-out;
+}
+@keyframes pulsePop {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* ── 6. Modals (Sticker Album & Parent Gate) ── */
+.kids-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.kids-modal[hidden] {
+  display: none !important;
+}
+
+.modal-card {
+  background: #FFFFFF;
+  border: var(--kid-border);
+  border-radius: 36px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  max-width: 640px;
+  width: 100%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes modalPop {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-header h2 {
+  font-size: 1.8rem;
+  color: var(--kid-ink);
+}
+.modal-close-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #F1F5F9;
+  border: 3.5px solid var(--kid-ink);
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.stickers-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  padding: 10px 0;
+}
+.sticker-slot {
+  aspect-ratio: 1;
+  background: #F8FAFC;
+  border: 3.5px dashed #CBD5E1;
+  border-radius: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px;
+  text-align: center;
+}
+.sticker-slot.unlocked {
+  background: #FEF08A;
+  border: 3.5px solid var(--kid-amber);
+  box-shadow: 0 4px 0 var(--kid-amber);
+}
+.sticker-slot img {
+  width: 58%;
+  height: 58%;
+  object-fit: contain;
+}
+.sticker-slot span {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--kid-ink);
+}
+
+.parent-modal-card {
+  max-width: 480px;
+}
+.parent-note {
+  font-size: 1.15rem;
+  color: #64748B;
+}
+.parent-gate-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.parent-choice-btn {
+  height: 64px;
+  border-radius: 20px;
+  border: 3.5px solid var(--kid-ink);
+  font-family: 'Fredoka', cursive, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 14px;
+  cursor: pointer;
+  box-shadow: var(--kid-shadow-sm);
+  transition: transform 0.15s ease;
+}
+.parent-choice-btn:hover {
+  transform: translateY(-2px);
+}
+.btn-open-sci {
+  background: var(--kid-sky);
+  color: #FFFFFF;
+}
+.btn-open-landing {
+  background: var(--kid-yellow);
+  color: var(--kid-ink);
+}
+.btn-stay-kids {
+  background: #F1F5F9;
+  color: #64748B;
+}
+
+/* ── 7. Confetti Canvas ── */
+#kids-confetti-canvas {
+  position: absolute;
+  inset: 0;
+  width: 1600px;
+  height: 636px;
+  z-index: 100;
+  pointer-events: none;
+}
